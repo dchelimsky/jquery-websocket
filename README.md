@@ -43,7 +43,7 @@ but no activity in the code since 2010.
     <script src="http://www.google.com/jsapi"></script>
     <script>google.load("jquery", "1.3")</script>
     <script src="http://jquery-json.googlecode.com/files/jquery.json-2.2.min.js"></script>
-    <script src="http://jquery-websocket.googlecode.com/files/jquery.websocket-0.0.1.js"></script>
+    <script src="https://raw.github.com/dchelimsky/jquery-websocket/v0.0.1/jquery.websocket.js"></script>
     <script>
     var ws = $.websocket("ws://127.0.0.1:8080/", {
             events: {
