@@ -9,32 +9,33 @@
  */
 (function($){
 $.extend({
-        websocketSettings: {
-                open: function(){},
-                close: function(){},
-                message: function(){},
-                options: {},
-                events: {}
-        },
         websocket: function(url, s) {
                 var ws = WebSocket ? new WebSocket( url ) : {
                         send: function(m){ return false },
                         close: function(){}
                 };
+
+                var settings = {
+                    open: function(){},
+                    close: function(){},
+                    message: function(){},
+                    options: {},
+                    events: {}
+                };
+                $.extend(settings, $.websocketSettings, s);
                 $(ws)
-                        .bind('open', $.websocketSettings.open)
-                        .bind('close', $.websocketSettings.close)
-                        .bind('message', $.websocketSettings.message)
+                        .bind('open', settings.open)
+                        .bind('close', settings.close)
+                        .bind('message', settings.message)
                         .bind('message', function(e){
                                 var m = $.evalJSON(e.originalEvent.data);
-                                var h = $.websocketSettings.events[m.type];
+                                var h = settings.events[m.type];
                                 if (h) h.call(this, m);
                         });
-                ws._settings = $.extend($.websocketSettings, s);
                 ws._send = ws.send;
                 ws.send = function(type, data) {
                         var m = {type: type};
-                        m = $.extend(true, m, $.extend(true, {}, $.websocketSettings.options, m));
+                        m = $.extend(true, m, $.extend(true, {}, settings.options, m));
                         if (data) m['data'] = data;
                         return this._send($.toJSON(m));
                 }
