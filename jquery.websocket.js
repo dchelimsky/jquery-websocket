@@ -11,13 +11,10 @@
 (function($){
     $.extend({
         websocket: function(url, s) {
-            if (typeof(WebSocket) == "undefined") {
-                WebSocket = MozWebSocket || null;
-            }
-            var ws = WebSocket ? new WebSocket( url ) : {
-                send: function(m){ return false; },
-                close: function(){}
-            };
+            var ws = window['MozWebSocket'] ? new MozWebSocket(url) : window['WebSocket'] ? new WebSocket(url) : {
+                        send: function(m){ return false; },
+                        close: function(){}
+                    };
             var settings = {
                 open: function(){},
                 close: function(){},
