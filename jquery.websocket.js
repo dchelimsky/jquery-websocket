@@ -11,6 +11,7 @@
 (function($){
     $.extend({
         websocket: function(url, s, protocols) {
+			protocols = protocols || [];
             var ws = window['MozWebSocket'] ? new MozWebSocket(url, protocols) : window['WebSocket'] ? new WebSocket(url, protocols) : {
                         send: function(m){ return false; },
                         close: function(){}
