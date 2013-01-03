@@ -1,5 +1,5 @@
 /*
- * jQuery Web Sockets Plugin v0.0.2
+ * jQuery Web Sockets Plugin v0.0.3
  * https://github.com/dchelimsky/jquery-websocket
  * http://code.google.com/p/jquery-websocket/
  *
