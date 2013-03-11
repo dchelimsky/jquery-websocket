@@ -1,4 +1,4 @@
-## 0.0.2
+## 0.0.3
 
 * Add support for optional protocols parameter in WebSocket constructor (Valentin Kunz)
 
