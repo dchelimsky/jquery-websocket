@@ -42,7 +42,7 @@ but no activity in the code since 2010.
         <input id="message" type="text"/>
         <script src="http://www.google.com/jsapi"></script>
         <script>google.load("jquery", "1.3")</script>
-        <script src="http://jquery-json.googlecode.com/files/jquery.json-2.2.min.js"></script>
+        <script src="https://raw.github.com/douglascrockford/JSON-js/master/json.js"></script>
         <script src="https://raw.github.com/dchelimsky/jquery-websocket/v0.0.2/jquery.websocket.js"></script>
         <script>
           var ws = $.websocket("ws://127.0.0.1:8080/", {
@@ -57,6 +57,15 @@ but no activity in the code since 2010.
         </script>
       </body>
     </html>
+
+## Note on ECMA5cript 5 JSON API compatibility
+
+Version 0.3 and below explicitly depended on the [jquery-json](https://code.google.com/p/jquery-json/) library to define the `$.evalJSON` and `$.toJSON` methods. This requirement has been replaced in subsequent versions by a dependency on the JSON parsing and serialization API defined in ECMAScript5 ([described thoroughly here](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/)).
+
+When upgrading from 0.0.3, you must do one of the following:
+
+1. Replace your usage of jquery-json with a library that defines `JSON.parse` and `JSON.stringify` for browsers that do not support them natively. json2.js from the [JSON-js](https://github.com/douglascrockford/JSON-js) library is a good choice.
+2. Provide your own implementations of those methods or otherwise deal on your own with browsers that do not support them natively.
 
 # License
 
