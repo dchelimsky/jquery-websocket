@@ -11,10 +11,13 @@
 (function($){
     $.extend({
         websocket: function(url, s, protocols) {
-            var ws = window['MozWebSocket'] ? new MozWebSocket(url, protocols || []) : window['WebSocket'] ? new WebSocket(url, protocols || []) : {
-                send: function(m){ return false; },
-                close: function(){}
-            };
+            var ws;
+            if ( protocols ) {
+                ws = window['MozWebSocket'] ? new MozWebSocket(url, protocols) : window['WebSocket'] ? new WebSocket(url, protocols) : false;
+            } else {
+                ws = window['MozWebSocket'] ? new MozWebSocket(url) : window['WebSocket'] ? new WebSocket(url) : false;
+            }
+            
             var settings = {
                 open: function(){},
                 close: function(){},
@@ -23,23 +26,27 @@
                 events: {}
             };
             $.extend(settings, $.websocketSettings, s);
-            $(ws)
-                .bind('open', settings.open)
-                .bind('close', settings.close)
-                .bind('message', settings.message)
-                .bind('message', function(e) {
-                    var m = $.evalJSON(e.originalEvent.data);
-                    var h = settings.events[m.type];
-                    if (h) h.call(this, m);
-                });
-            ws._send = ws.send;
-            ws.send = function(type, data) {
-                var m = {type: type};
-                m = $.extend(true, m, $.extend(true, {}, settings.options, m));
-                if (data) m['data'] = data;
-                return this._send($.toJSON(m));
-            };
-            $(window).unload(function(){ ws.close(); ws = null; });
+            
+            if ( ws !== false ) {
+                $(ws)
+                    .bind('open', settings.open)
+                    .bind('close', settings.close)
+                    .bind('message', settings.message)
+                    .bind('message', function(e) {
+                        var m = $.evalJSON(e.originalEvent.data);
+                        var h = settings.events[m.type];
+                        if (h) h.call(this, m);
+                    });
+                ws._send = ws.send;
+                ws.send = function(type, data) {
+                    var m = {type: type};
+                    m = $.extend(true, m, $.extend(true, {}, settings.options, m));
+                    if (data) m['data'] = data;
+                    return this._send($.toJSON(m));
+                };
+                $(window).unload(function(){ ws.close(); ws = null; });
+            }
+            
             return ws;
         }
     });
