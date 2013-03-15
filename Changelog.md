@@ -1,4 +1,4 @@
-## dev
+## 0.0.4
 
 * Replace usage of `$.evalJSON` and `$.toJSON` with ES5-compliant `JSON.parse` and `JSON.stringify` (Brian Moseley)
 * Only pass protocols to WebSocket if they exist (t3chn0r)
