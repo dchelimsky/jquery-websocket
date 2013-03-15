@@ -13,9 +13,9 @@
         websocket: function(url, s, protocols) {
             var ws;
             if ( protocols ) {
-                ws = window['MozWebSocket'] ? new MozWebSocket(url, protocols) : window['WebSocket'] ? new WebSocket(url, protocols) : false;
+                ws = window['MozWebSocket'] ? new MozWebSocket(url, protocols) : window['WebSocket'] ? new WebSocket(url, protocols) : null;
             } else {
-                ws = window['MozWebSocket'] ? new MozWebSocket(url) : window['WebSocket'] ? new WebSocket(url) : false;
+                ws = window['MozWebSocket'] ? new MozWebSocket(url) : window['WebSocket'] ? new WebSocket(url) : null;
             }
 
             var settings = {
@@ -27,7 +27,7 @@
             };
             $.extend(settings, $.websocketSettings, s);
 
-            if ( ws !== false ) {
+            if (ws) {
                 $(ws)
                     .bind('open', settings.open)
                     .bind('close', settings.close)
