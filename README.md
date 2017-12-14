@@ -1,14 +1,9 @@
 Send and receive the JSON object directly with Web Sockets API.
 
-# This is a fork
+# Deprecated
 
-http://code.google.com/p/jquery-websocket/ had several issues reported
-but no activity in the code since 2010. I needed to make a change and
-decided I might as well fork and post it. There have been a few contributions
-as a result, which is great to see (thank you, contributors!).
-
-There are, however, no automated tests! "WAT?", you ask! Yes, its
-true. No tests. You've been warned.
+This fork of http://code.google.com/p/jquery-websocket/ is no longer in development. Please
+feel free to use it as/is or fork it if you wish to make changes.
 
 # Usage
 
